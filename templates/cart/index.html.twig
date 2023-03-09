@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    {% for message in app.flashes('success') %}
+    <div class="text-center alert alert-success">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% for message in app.flashes('warning') %}
+    <div class="text-center alert alert-warning">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% for message in app.flashes('info') %}
+    <div class="text-center alert alert-info">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-md-8">
+        {% if not app.user %}
+            <div class="container-fluid"
+                style="border: solid 1px rgba(117,117,117,0.3); margin-left: 10px; padding: 20px;">
+                <p style="color: rgb(250, 84, 0);font-size: 20px; margin-bottom: 0;">Livraison gratuite pour les
+                    membres.</p>
+                <p style="color: #757575;">Devenez Membre MyShop pour profiter de livraisons rapides et gratuites. <a
+                        href="">Rejoingnez-nous</a>
+                    ou <a href="">S'identifier</a></p>
+            </div>
+        {% endif %}
+            <div class="container-fluid">
+                <h4 class="mt-4">Panier</h4>
+                {% if items %}
+                <table class="table">
+                    {% for item in items %}
+                    <tr>
+                        <td><img src="{{ asset('images/produits/' ~ item.product.image) }}" alt="image du produit"
+                                style="width: 150px; height: 150px; object-fit: contain;"></td>
+                        <td><p class="mt-4">{{ item.product.brand }} {{ item.product.title }} <br>Chaussure pour
+                            {{ item.product.collection }}<br>{{ item.product.color}} <br>Taille / Pointure
+                            {{ item.product.size }}<br> Quantité &nbsp;&nbsp;&nbsp; {{ item.quantity }} <br><br>
+                            <a href="{{ path('cart_decrement', {id : item.product.id }) }}"
+                                class="btn btn-sm btn-success mb-3" style="width: 30px; height: 30px;">
+                                <i class="fas fa-minus"></i></a>
+                            <a href="{{ path('cart_add', {id : item.product.id }) }}" class="btn btn-sm btn-success mb-3"
+                                style="width: 30px; height: 30px;">
+                                <i class="fas fa-plus"></i></a>
+                            <a href="{{ path('cart_remove', {id : item.product.id }) }}" class="btn btn-sm btn-danger mb-3"
+                                style="width: 30px; height: 30px;">
+                                <i class="fa-regular fa-trash-can"></i></a></p>
+                        </td>
+                        <td>{{ item.product.price * item.quantity }} €</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% else %}
+                <p>Il n'y a aucun article dans votre panier.</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="container-fluid">
+                <h4 class="mb-4">Récapitulatif</h4>
+                <div class="row">
+                    <div class="col-md-10">
+                        <p>Avez-vous un code promotionnel ?</p>
+                    </div>
+                    <div class="col-md-2">
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <p>Sous-total</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p>{{ total }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <p>Frais estimés de prise en charge et d'expédition</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p>Gratuit</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row pt-3">
+                    <div class="col-md-10">
+                        <p>Total</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p>{{ total }} €</p>
+                    </div>
+                </div>
+                <hr>
+
+                {% if app.user %}
+                <a href="{{ path('cart_order') }}" class="btn btn-dark btn-large">Paiement</a>
+                {% else %}
+                <p>Veuillez vous <a href="{{ path('app_register') }}">inscrire</a> ou vous <a href="{{ path('app_login') }}">identifier</a> afin de pouvoir finaliser votre commande</p>
+                {% endif %}
+                
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="container text-center mb-5">
+        <img src="{{ asset('images/boutique/banniere-admin-membre.jpg') }}" alt="image profil" class="card-img-top"
+            style="object-fit: contain;">
+        <div class="alert alert-info">💬 Vous trouverez ci-dessous le tableau contenant l'ensemble des membres
+        </div>
+
+        {% for message in app.flashes('success') %}
+        <div class="text-center alert alert-success">
+            {{ message }}
+        </div>
+        {% endfor %}
+
+
+        <a href="{{ path('app_register') }}" class="btn btn-primary mt-3">Ajouter un membre</a>
+    </div>
+    <table class="table table-bordered table-striped table-hover text-center">
+        <thead class="table-dark">
+            <tr>
+                {% for data in colonnes %}
+                {% if (data != 'id') and (data != 'password') %}
+                <th>{{ data }}</th>
+                {% endif %}
+                {% endfor %}
+                <th>Editer</th>
+                <th>Supprimer</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in users %}
+            <tr>
+                <td>{{ data.email }}</td>
+                <td>{{ data.roles | join(' - ') }}</td>
+                <td>{{ data.pseudo }}</td>
+                <td>{{ data.firstname }}</td>
+                <td>{{ data.lastname }}</td>
+                <td>{{ data.civility }}</td>
+                <td>{{ data.createdAt | date('d/m/Y à H:i:s') }}</td>
+                <td><a href="{{ path('app_register_edit', {'id': data.id}) }}" class="btn btn-primary"><i
+                            class="fa-solid fa-pen-to-square"></i></a></td>
+                <td><a href="{{ path('admin_delete_user', {'id': data.id}) }}" class="btn btn-danger"><i
+                            class="fa-solid fa-trash-can"></i></a></td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

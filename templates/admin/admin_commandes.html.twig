@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+<div class="text-center">
+    <img src="{{ asset('images/boutique/chaussure_homme.jpg') }}" alt="image profil" class="card-img-top"
+            style="object-fit: contain;">
+    <div class="alert alert-info">💬 Vous trouverez ci-dessous le tableau contenant l'ensemble des commandes
+    </div>
+
+    {% for message in app.flashes('success') %}
+    <div class="text-center alert alert-success">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+<table class="table table-bordered table-striped table-hover text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>Commande n°</th>
+            <th>Membre</th>
+            <th>Photo</th>
+            <th>Infos Produit</th>
+            <th>Quantité</th>
+            <th>Total</th>
+            <th>Statut</th>
+            <th>Date</th>
+            <th>Supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.user.id}} / {{ order.user.email }}</td>
+            {% for product in order.product %}
+            <td><img src="{{ asset('images/produits/' ~ product.image) }}" style="object-fit: contain; width: 100px; height: 100px;" alt=""></td>
+            <td>{{ product.brand }} / {{ product.title }} / {{ product.price }} €</td>
+            {% endfor %}
+            <td>{{ order.quantity }}</td>
+            <td>{{ order.total }} €</td>
+            <td>{{ order.statut }}</td>
+            <td>{{ order.createdAt | date('d/m/Y') }}</td>
+            <td><a href="{{ path('admin_delete_order', {'id': order.id}) }}" class="btn btn-danger"><i
+                        class="fa-solid fa-trash-can"></i></a></td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+</div>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+    <img src="{{ asset('images/boutique/chaussure_homme.jpg') }}" alt="photo du produit"
+            style="height: 200px; object-fit: contain;">
+        <div class="col-md-6">
+        <img src="{{ asset('images/produits/' ~ produit.image) }}" alt="photo du produit"
+            style="height: 500px; object-fit: contain;">
+        </div>
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h1 class="mt-2" style="display: inline; margin-right: 20px;">{{ produit.brand }}</h1><span>{{ produit.title }}</span>
+                    <p>{{ produit.price }} €</p>
+                    <p>✅ Payer cet article en 3x par carte bancaire</p>
+
+                    <form action="{{ path('cart_add', {id: produit.id}) }}" method="get">
+                        <label for="size" class="form-label">Taille</label>
+                        <select name="" id="" class="form-select" aria-describedby="helpSize">
+                            <option value="35">35</option>
+                            <option value="36">36</option>
+                            <option value="37">37</option>
+                            <option value="38">38</option>
+                            <option value="39">39</option>
+                            <option value="40" selected>40</option>
+                            <option value="41">41</option>
+                            <option value="42">42</option>
+                            <option value="43">43</option>
+                            <option value="44">44</option>
+                            <option value="45">45</option>
+                        </select>
+                        <div id="helpSize" class="form-text">Conseil pointure : Prenez votre pointure habituelle</div>
+                        <div class="my-4">
+                        <a href="{{ path('cart_add', {id: produit.id}) }}" class="btn btn-dark btn-large">Ajouter au panier</a>
+                        </div>
+                        <p><i class="fa-solid fa-chevron-right"></i></i>&nbsp; Livraison gratuite et Retour offert</p>
+
+                    </form>
+                </div>
+                <div class="card-footer">
+                <h5 class="my-4">💬 INFORMATIONS</h5>
+                <p><i class="fa-solid fa-chevron-right"></i></i>&nbsp; Vous avez trouvé moins cher ailleurs ?</p>
+                <p><i class="fa-solid fa-chevron-right"></i></i>&nbsp; MYSHOP Premium Days jusqu'au 08/03/2023 : 20% de réduction avec MYSHOP Premium</p>
+                <p><i class="fa-solid fa-chevron-right"></i></i>&nbsp; Demandez votre CB Gold Mastercard MYSHOP Gratuite</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# <div class="card mt-5" style="width: 60rem; margin: 0 auto">
+        <div class="card-header mt-2">
+            <h1 class="mt-2">{{ produit.title }}</h1>
+            <p><span class="badge rounded-pill text-bg-primary"><i class="fa-solid fa-tag"></i> {{ produit.price }} € /
+                    jour</span></p>
+            <p><i class="fa-regular fa-calendar"></i> {{ produit.createdAt | date('d/m/Y à H:i') }}</p>
+        </div>
+        <div class="card-body">
+            <h2 class="my-4">Critères</h2>
+            <table class="table table-bordered text-center">
+                <tbody>
+                    <tr style="background: #FF6E14; color: white;">
+                        <th scope="col"><i class="fa-solid fa-list"></i> color</th>
+                        <th scope="col"><i class="fa-solid fa-list"></i> size</th>
+                        <th scope="col"><i class="fa-solid fa-tag"></i> Prix</th>
+                    </tr>
+                    <tr>
+                        <td>{{ produit.color }}</td>
+                        <td>{{ produit.size }}</td>
+                        <td>{{ produit.price }} €</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2 class="my-4">Description</h2>
+            <p>{{ produit.content | raw }}</p>
+        </div>
+        <div class="card-footer">
+            {% if app.user %}
+            <div class="container text-center my-5">
+                <a href="" class="btn btn-primary"
+                    style="background: #FF6E14; color: white;">Réserver ce véhicule</a>
+            </div>
+            {% else %}
+            <div class="container text-center my-5">
+                <div class="alert alert-info">💬 Pour réserver ce véhicule vous devez être connecté</div>
+                <a href="" class="btn btn-primary"
+                    style="background: #FF6E14; color: white;">Connexion</a><br><br>
+                <a href="">Pas encore de compte ?</a>
+            </div>
+            {% endif %}
+
+        </div>
+    </div> #}
+</div>
+
+
+
+
+{% endblock %}

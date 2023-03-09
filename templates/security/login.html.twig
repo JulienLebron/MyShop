@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="card mx-auto" style="width: 30rem; border: none;">
+        <h2 class="mb-4" style="font-size: 28px;">Saisissez les informations demandées pour vous connecter.</h2>
+        <form method="post">
+            {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+            <div class="mb-3">
+                Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se
+                    déconnecter</a>
+            </div>
+            {% endif %}
+
+            <label for="inputEmail" class="my-3">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
+                autocomplete="email" required autofocus>
+            <label for="inputPassword" class="my-3">Mot de passe</label>
+            <input type="password" name="password" id="inputPassword" class="form-control"
+                autocomplete="current-password" required>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+        #}
+
+
+            <p class="pt-4">En continuant, vous accepter les <a href="">Conditions d'utilisation</a> et vous confirmez
+                avoir lu la <a href="">Politique de confidentialité</a> de MyShop.</p>
+
+            <div class="text-end mt-5">
+                <button type="submit" class="btn btn-dark">Continuer</button>
+            </div>
+    </div>
+    </form>
+</div>
+
+</div>
+{% endblock %}

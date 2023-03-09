@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="text-center">
+        <div class="alert alert-info">Bienvenue sur votre Backoffice</div>
+
+        <a href="{{ path('admin_produits') }}" class="col-md-6 btn btn-dark mb-2">Gestion des produits</a>
+        <a href="{{ path('admin_users') }}" class="col-md-6 btn btn-dark mb-2">Gestion des membres</a>
+        <a href="{{ path('admin_commandes') }}" class="col-md-6 btn btn-dark mb-2">Gestion des commandes</a>
+    </div>
+</div>
+
+
+
+{% endblock %}

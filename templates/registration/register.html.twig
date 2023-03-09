@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Saisissez les informations demandées pour nous rejoindre.{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="card mx-auto" style="width: 30rem; border: none;">
+        <h2 class="mb-5" style="font-size: 28px;">Saisissez les informations demandées pour nous rejoindre.</h2>
+        {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.pseudo) }}
+        {{ form_row(registrationForm.password) }}
+        {{ form_row(registrationForm.firstname) }}
+        {{ form_row(registrationForm.lastname) }}
+        {{ form_row(registrationForm.civility) }}
+
+        <p class="pt-3">En continuant, vous accepter les <a href="">Conditions d'utilisation</a> et vous confirmez avoir lu la <a
+                href="">Politique de confidentialité</a> de MyShop.</p>
+
+    <div class="text-end mt-5">
+        <button type="submit" class="btn btn-dark">Continuer</button>
+    </div>
+    </div>
+    {{ form_end(registrationForm) }}
+</div>
+{% endblock %}
